@@ -2,7 +2,7 @@
 title: |
   | \vspace{7cm} STAT 6021: Project Two
 subtitle: "Predicting Personal Medical Cost"
-author: "Niraja Bhidar(nd4dg), Derek Banks(dmb3ey), Jay Hombal (mh4ey), Ronak Rijhwani (rr7wq)"
+author: "Niraja Bohidar(nd4dg), Derek Banks(dmb3ey), Jay Hombal (mh4ey), Ronak Rijhwani (rr7wq)"
 header-includes:
     - \usepackage{setspace}\doublespacing
 output:
