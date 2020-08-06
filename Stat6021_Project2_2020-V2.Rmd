@@ -563,12 +563,15 @@ The p-value was 0.0941 greater than 0.05, so we could not reject the null. We th
 
 We then tested how well this logistic regression model performed in predicting an outcome that medical **charges** were greater than or less than $20000 given the values of other predictors, using the probability of the observations in the test data of being in each class, we will choose a threshold of 0.5 for the confusion matrix.    
 
-```{r include=FALSE}
+```{r echo=FALSE, include=TRUE}
 predsr2<- predict(lrmodel2,newdata=lrdata_test, type='response')
 ratesr2 <- prediction(predsr2, lrdata_test$lrcharges)
 roc_resultr2 <- performance(ratesr2, measure = 'tpr', x.measure = 'fpr')
 plot(roc_resultr2)
 lines(x=c(0,1), y=c(0,1), col="red")
+```
+
+```{r include=FALSE}
 aucr2 <- performance(ratesr2, measure = 'auc')
 aucr2@y.values
 lrdata_test$lrchareges
@@ -595,7 +598,7 @@ sepecifity
 
 False Positive Rate: When it was actually no, how often would it predict yes  = 0.0625
 
-False Negative Rate: When it was actually yes, how often would it predict yes = 0.2198582  
+In other words, 0.0625 percent of the time, the model would incorrectly predict charges over 20,000 USD.
 
 Sensitivity  out of all the positive classes, how much was predicted correctly = 0.7801418
 
@@ -605,7 +608,6 @@ Specificity determined the proportion of actual negatives that were correctly id
 The AUC value for our model was 0.8999704. The AUC value was higher than 0.5, which meant the model did better than random guessing the classifying observations.
 
 ## 5. Conclusion:
-
 
 1. Even after applying transformations, the model fit is still did not satisfy linear regression assumptions.
 
