@@ -91,17 +91,17 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 
 ## 1 Executive Summary :
 
-Insurance companies calculate premiums by using models based on certain demographics. We wanted to ascertain what variables influenced claims and how influential these predictors were. Through Kaggle, we were able to obtain a data set that contained the claims of people based on age, body mass index (BMI), sex, region, smoking, and children. 
+Insurance companies calculate premiums by using models based on certain demographics. We wanted to ascertain what variables influenced these charges and how influential these predictors were. Through Kaggle, we were able to obtain a data set that contained the medical claims charges of 1338 people based on age, body mass index (BMI), sex, region, smoking, and children. 
 
 At first, we individually compared each variable against charges and saw that our data appeared to be right skewed. This implied that a transformation of the data would be necessary in order to normalize our data. Before we did that, we wanted to discern which variables were significant to keep in our model.  
 
 The linear regression output for our initial model, which contained all the variables, showed the northwest region was linearly related some other variable, therefore suggesting it should be dropped from the model. However, no matter how we manipulated the predictors, the data seemed to have non-constant variance which would give no value to any statistical analysis we did on these models. Due to the complexity of data manipulation, we used a logarithmic binomial model.  
 
-In this approach, we split the groups into charges that were above 20,000 USD dollars and charges that were below 20,000. The equation we found to be the best fit for our data was:
+In this approach, we split the groups into charges that were above 20,000 dollars and charges that were below 20,000. The equation we found to be the best fit for our data was:
 
 $$ \ln \frac{\pi_i}{1-\pi_i} = -7.86104 + 0.04087 age + 0.10134bmi + 4.75564smokeryes $$ 
 
-This shows that the odds of having charges over $20,000 gets multiplied by a factor of 116 if one is a smoker (while holding age and BMI constant), gets multiplied by a factor 1.13 for each BMI increase (while holding age and smoking constant), and gets multiplied by a factor of 1.04 for every addition year (while holding smoking and BMI constant).     
+This shows that the odds of having charges over 20,000 gets multiplied by a factor of 116 if one is a smoker (while holding age and BMI constant), gets multiplied by a factor 1.13 for each BMI increase (while holding age and smoking constant), and gets multiplied by a factor of 1.04 for every addition year (while holding smoking and BMI constant).     
 
 ## 2 Exploratory Data Analysis :
 
@@ -258,9 +258,11 @@ best$bic <- summary(allreg)$bic
 
 The following models were the two automatic search procedure recommended models:
  
-    + The model with lowest BIC (-1817.233) was: $$ charges = \beta_0 + \beta_1 age + \beta_2 bmi + \beta_3 children + \beta_4 smokeyes $$
+    + The model with lowest BIC (-1817.233) was: 
+$$ charges = \beta_0 + \beta_1 age + \beta_2 bmi + \beta_3 children + \beta_4 smokeyes $$
  
-  + The model with highest adjusted R^2^ was: $$ charges = \beta_0 + \beta_1 age + \beta_2 bmi + \beta_3 children + \beta_4 smokeyes + \beta_5 regionsoutheast + \beta_6 region5southwest $$
+    + The model with highest adjusted R^2^ was: 
+$$ charges = \beta_0 + \beta_1 age + \beta_2 bmi + \beta_3 children + \beta_4 smokeyes + \beta_5 regionsoutheast + \beta_6 region5southwest $$
 
 ```{r include=FALSE}
 best %>% top_n(-1, bic)
@@ -299,7 +301,7 @@ The following observations were made from the exploratory data analysis phase:
 
 ## 3. Initial Model Considered:
 
-Based on the results from the model search procedures, the intial model considered was:
+Based on the results from the model search procedures, where the models with the highest R^2^ and lowest BIC values were different, the intial model considered was the full model:
 $$ charges = \beta_0 + \beta_1 age + \beta_2 bmi + \beta_3 children + \beta_4 smokeyes + \beta_5 region + \beta_6 sex $$
 
 ```{r echo=TRUE}
@@ -630,5 +632,5 @@ $$ \ln \frac{\pi_i}{1-\pi_i} = -7.86104 + 0.04087 age + 0.10134bmi + 4.75564smok
 
 
 
-
+Project presentation video: https://youtu.be/ai0ttQwX2Ko 
 
